@@ -19,10 +19,14 @@ public class FireBulletOnActivate : MonoBehaviour
 	[SerializeField] private Transform barrelLocation;
 	[SerializeField] private Transform casingExitLocation;
 
+	[Header("Sounds")]
+	[SerializeField] private AudioSource audioSource;
+	[SerializeField] private AudioClip fireSound;
+
 	[Header("Settings")]
 	[Tooltip("Specify time to destory the casing object")] [SerializeField] private float destroyTimer = 5f;
 	[Tooltip("Bullet Speed")] [SerializeField] private float bulletForce = 500f;
-	[Tooltip("Casing Ejection Speed")] [SerializeField] private float ejectForce = 150f;
+	[Tooltip("Casing Ejection Speed")] [SerializeField] private float casingEjectForce = 150f;
 	#endregion
 
 	#region UnityEngine
@@ -54,6 +58,9 @@ public class FireBulletOnActivate : MonoBehaviour
 	//This function creates the bullet behavior (Animation Event Action)
 	void Shoot()
 	{
+		//Play Shot Audio
+		audioSource.PlayOneShot(fireSound);
+
 		if (muzzleFlashPrefab)
 		{
 			//Create the muzzle flash
@@ -89,7 +96,7 @@ public class FireBulletOnActivate : MonoBehaviour
 		GameObject tempCasing;
 		tempCasing = Instantiate(casingPrefab, casingExitLocation.position, casingExitLocation.rotation) as GameObject;
 		//Add force on casing to push it out
-		tempCasing.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(ejectForce * 0.7f, ejectForce), (casingExitLocation.position - casingExitLocation.right * 0.3f - casingExitLocation.up * 0.6f), 1f);
+		tempCasing.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(casingEjectForce * 0.7f, casingEjectForce), (casingExitLocation.position - casingExitLocation.right * 0.3f - casingExitLocation.up * 0.6f), 1f);
 		//Add torque to make casing spin in random direction
 		tempCasing.GetComponent<Rigidbody>().AddTorque(new Vector3(0, Random.Range(100f, 500f), Random.Range(100f, 1000f)), ForceMode.Impulse);
 

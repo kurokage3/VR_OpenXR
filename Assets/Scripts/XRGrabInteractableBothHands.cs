@@ -15,68 +15,18 @@ public class XRGrabInteractableBothHands : XRGrabInteractable
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
-        string name = args.interactorObject.transform.name;
-        Debug.Log("interactorObject Name = " + name);
-
+        // Determine which hand is holding the object and assign the correct attach transform
         if (args.interactorObject.transform.CompareTag("Left Hand"))
         {
             attachTransform = leftAttachTransform;
         }
-        else if(args.interactorObject.transform.CompareTag("Right Hand"))
+        else if (args.interactorObject.transform.CompareTag("Right Hand"))
         {
             attachTransform = rightAttachTransform;
         }
 
+        // Original OnSelectEntering functionality
         base.OnSelectEntering(args);
     }
 
-    //protected override void OnSelectEntered(SelectEnterEventArgs args)
-    //{
-    //    base.OnSelectEntered(args);
-
-    //    // Try to get the ActionBasedController from the interactor
-    //    var controller = args.interactorObject as ActionBasedController;
-    //    if (controller == null)
-    //    {
-    //        Debug.LogWarning("The interactor does not have an ActionBasedController component.", this);
-    //        return;
-    //    }
-
-    //    // Determine the node (left or right hand) associated with the controller
-    //    var controllerNode = GetControllerNode(controller);
-
-    //    // Set the attach transform based on the node
-    //    if (controllerNode == XRNode.LeftHand && leftAttachTransform != null)
-    //    {
-    //        attachTransform = leftAttachTransform;
-    //    }
-    //    else if (controllerNode == XRNode.RightHand && rightAttachTransform != null)
-    //    {
-    //        attachTransform = rightAttachTransform;
-    //    }
-    //}
-
-    //private XRNode GetControllerNode(ActionBasedController controller)
-    //{
-    //    var inputDevices = new List<InputDevice>();
-    //    InputDevices.GetDevices(inputDevices);
-
-    //    foreach (var device in inputDevices)
-    //    {
-    //        if (device.characteristics.HasFlag(InputDeviceCharacteristics.HeldInHand))
-    //        {
-    //            // Determine if the device is a left-hand or right-hand controller
-    //            if (device.characteristics.HasFlag(InputDeviceCharacteristics.Left))
-    //            {
-    //                return XRNode.LeftHand;
-    //            }
-    //            else if (device.characteristics.HasFlag(InputDeviceCharacteristics.Right))
-    //            {
-    //                return XRNode.RightHand;
-    //            }
-    //        }
-    //    }
-
-    //    return XRNode.Head; // Default to head if we cannot find the controller node
-    //}
 }
