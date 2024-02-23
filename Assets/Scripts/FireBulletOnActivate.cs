@@ -25,7 +25,7 @@ public class FireBulletOnActivate : MonoBehaviour
 
 	[Header("Settings")]
 	[Tooltip("Specify time to destory the casing object")] [SerializeField] private float destroyTimer = 5f;
-	[Tooltip("Bullet Speed")] [SerializeField] private float bulletForce = 500f;
+	[Tooltip("Bullet Speed")] [SerializeField] private float bulletInitialVelocity = 50f;
 	[Tooltip("Casing Ejection Speed")] [SerializeField] private float casingEjectForce = 150f;
 	#endregion
 
@@ -77,9 +77,10 @@ public class FireBulletOnActivate : MonoBehaviour
 			return;
 		}
 
-		// Create a bullet and add force on it in direction of the barrel
+		// Create a bullet and set initial velocity on it in direction of the barrel
 		GameObject spawnedBullet = Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation);
-		spawnedBullet.GetComponent<Rigidbody>().AddForce(barrelLocation.forward * bulletForce);
+		Rigidbody bulletRB = spawnedBullet.GetComponent<Rigidbody>();
+		bulletRB.velocity = barrelLocation.forward.normalized * bulletInitialVelocity;
 
 		//Old Line of Code
 		//Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>().AddForce(barrelLocation.forward * bulletForce);

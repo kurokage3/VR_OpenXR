@@ -1217,7 +1217,7 @@ MonoBehaviour:
   m_Camera: {fileID: 2955729840904801906}
   m_OriginBaseGameObject: {fileID: 2816229648929318326}
   m_CameraFloorOffsetObject: {fileID: 7694741179114076899}
-  m_RequestedTrackingOriginMode: 1
+  m_RequestedTrackingOriginMode: 2
   m_CameraYOffset: 1.1176
 --- !u!114 &5386465594932087220
 MonoBehaviour:
@@ -3386,8 +3386,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5323344868998160735}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.XRRayInteractor,
+          Unity.XR.Interaction.Toolkit
+        m_MethodName: set_allowAnchorControl
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3413,8 +3414,9 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 5323344868998160735}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.XRRayInteractor,
+          Unity.XR.Interaction.Toolkit
+        m_MethodName: set_allowAnchorControl
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
