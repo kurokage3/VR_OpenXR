@@ -19,18 +19,27 @@ public class FireBulletOnActivate : MonoBehaviour
 	[SerializeField] private Transform barrelLocation;
 	[SerializeField] private Transform casingExitLocation;
 
+	[Header("Magazine Refrences")]
+	[SerializeField] private Magazine magazine;
+	[SerializeField] private XRBaseInteractor socketInteractor;
+	private bool isGunRacked = true;
+
 	[Header("Sounds")]
 	[SerializeField] private AudioSource audioSource;
 	[SerializeField] private AudioClip fireSound;
+	[SerializeField] private AudioClip reloadSound;
+	[SerializeField] private AudioClip noAmmoSound;
+	[SerializeField] private AudioClip rackSlideSound;
 
 	[Header("Settings")]
 	[Tooltip("Specify time to destory the casing object")] [SerializeField] private float destroyTimer = 5f;
 	[Tooltip("Bullet Speed")] [SerializeField] private float bulletInitialVelocity = 50f;
 	[Tooltip("Casing Ejection Speed")] [SerializeField] private float casingEjectForce = 150f;
-	#endregion
+    #endregion
 
-	#region UnityEngine
-	void Start()
+    #region UnityEngine
+    [System.Obsolete]
+    void Start()
     {
 		//Gun Settings Initialization
 		if (barrelLocation == null)
@@ -43,21 +52,58 @@ public class FireBulletOnActivate : MonoBehaviour
 			gunAnimator = GetComponentInChildren<Animator>();
 		}
 
+		//Magazine Intitialization
+		socketInteractor.onSelectEnter.AddListener(AddMagazine);
+		socketInteractor.onSelectExit.AddListener(RemoveMagazine);
+
 		//VR Settings Initialization
 		XRGrabInteractable grabbable = GetComponentInParent<XRGrabInteractable>();
 		grabbable.activated.AddListener(PullTheTrigger);
     }
 	#endregion
 
+	public void AddMagazine(XRBaseInteractable interactable)
+    {
+		magazine = interactable.GetComponent<Magazine>();
+		audioSource.PlayOneShot(reloadSound);
+		isGunRacked = false;
+	}
+
+	public void RemoveMagazine(XRBaseInteractable interactable)
+    {
+		magazine = null;
+		audioSource.PlayOneShot(reloadSound);
+	}
+
+	public void RackSlider()
+    {
+		isGunRacked = true;
+		audioSource.PlayOneShot(rackSlideSound);
+	}
+
 	public void PullTheTrigger(ActivateEventArgs arg)
 	{
-		//Start the animation, which 
-		gunAnimator.SetTrigger("Fire");
+		//Check For Magazine & Bullets & Gun is Racked
+		if(magazine && magazine.numberOfBullets > 0 && isGunRacked)
+        {
+			//Start the animation, which 
+			gunAnimator.SetTrigger("Fire");
+		}
+        else
+        {
+			//Play No Ammo Sound
+			audioSource.PlayOneShot(noAmmoSound);
+		}
+
+		
 	}
 
 	//This function creates the bullet behavior (Animation Event Action)
 	void Shoot()
 	{
+		//Remove a bullet
+		magazine.numberOfBullets--;
+
 		//Play Shot Audio
 		audioSource.PlayOneShot(fireSound);
 
