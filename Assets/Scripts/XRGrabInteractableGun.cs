@@ -9,6 +9,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class XRGrabInteractableGun : XRGrabInteractable
 {
+    #region Variables
     [Header("Custom References")]
     public Transform leftAttachTransform;
     public Transform rightAttachTransform;
@@ -18,44 +19,7 @@ public class XRGrabInteractableGun : XRGrabInteractable
 
     // Keep track of whether the gun is currently held
     private bool isHeld = false;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        // Ensure the slider's grab interactable is disabled by default
-        if (sliderGrabInteractable != null)
-        {
-            sliderGrabInteractable.enabled = false;
-        }
-    }
-
-    // Public method to check if the gun is being held
-    public bool IsHeld()
-    {
-        return isHeld;
-    }
-
-    protected override void OnSelectEntered(SelectEnterEventArgs args)
-    {
-        base.OnSelectEntered(args);
-        // When the gun is picked up, enable the slider's interactable
-        isHeld = true;
-        if (sliderGrabInteractable != null)
-        {
-            sliderGrabInteractable.enabled = true;
-        }
-    }
-
-    protected override void OnSelectExited(SelectExitEventArgs args)
-    {
-        base.OnSelectExited(args);
-        // When the gun is released, disable the slider's interactable
-        isHeld = false;
-        if (sliderGrabInteractable != null)
-        {
-            sliderGrabInteractable.enabled = false;
-        }
-    }
+    #endregion
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
@@ -73,4 +37,47 @@ public class XRGrabInteractableGun : XRGrabInteractable
         base.OnSelectEntering(args);
     }
 
+
+    #region Slider_Methods
+    protected override void Awake()
+    {
+        base.Awake();
+
+        // Ensure the slider's grab interactable is disabled by default
+        if (sliderGrabInteractable != null)
+        {
+            sliderGrabInteractable.enabled = false;
+        }
+    }
+
+    // Public method to check if the gun is being held
+    public bool IsHeld()
+    {
+        return isHeld;
+    }
+
+    protected override void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        base.OnSelectEntered(args);
+
+        // When the gun is picked up, enable the slider's interactable
+        isHeld = true;
+        if (sliderGrabInteractable != null)
+        {
+            sliderGrabInteractable.enabled = true;
+        }
+    }
+
+    protected override void OnSelectExited(SelectExitEventArgs args)
+    {
+        base.OnSelectExited(args);
+
+        // When the gun is released, disable the slider's interactable
+        isHeld = false;
+        if (sliderGrabInteractable != null)
+        {
+            sliderGrabInteractable.enabled = false;
+        }
+    }
+    #endregion
 }
