@@ -6,49 +6,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-//Currently Left Hand Controller Only for Testing Purposes
 public class XRRayInteractorGunMode : XRRayInteractor
 {
-    #region Variables
-              
-    #endregion
-
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
-        Debug.Log("Grabbed Object = " + args.interactableObject.transform.name);
-        Debug.Log("Grabbed Object Tag = " + args.interactableObject.transform.tag);
-
-
-        Debug.Log("Currently Left Hand Controller Only for Testing Purposes");
-
+        //Testing Debug Log
+        LogInteractionDetails(args);
 
         //Check if the player is trying to pick up the gun by the slider
-        Transform currentTransform = args.interactableObject.transform;
-        bool isSlider = false;
-        while (currentTransform != null)
-        {
-            if (currentTransform.CompareTag("Slider"))
-            {
-                isSlider = true;
-                break;
-            }
-            currentTransform = currentTransform.parent;
-        }
-        if (isSlider)
+        if (IsInteractingWithSlider(args.interactableObject.transform))
         {
             Debug.Log("Slider interacted, ignoring...");
             return; // Do not proceed with selection
         }
 
-        //Disable XR Interactor Line Visual
-        XRInteractorLineVisual lineVisual = GetComponent<XRInteractorLineVisual>();
-        if (lineVisual != null)
-        {
-            lineVisual.enabled = false;
-        }
-
-        //Disable XR Ray Interactor Anchor Control (Lock Translation & Rotation)
-        allowAnchorControl = false;
+        // Disable visual and anchor control
+        SetVisualAndAnchorControl(false);
 
         // Original OnSelectEntered functionality
         base.OnSelectEntered(args);
@@ -56,17 +29,43 @@ public class XRRayInteractorGunMode : XRRayInteractor
 
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
-        //Enable XR Interactor Line Visual
-        XRInteractorLineVisual lineVisual = GetComponent<XRInteractorLineVisual>();
-        if (lineVisual != null)
-        {
-            lineVisual.enabled = true;
-        }
-
-        //Enable XR Ray Interactor Anchor Control (Lock Translation & Rotation)
-        allowAnchorControl = true;
+        // Enable visual and anchor control
+        SetVisualAndAnchorControl(true);
 
         // Original OnSelectExited functionality
         base.OnSelectExited(args);
+    }
+
+    private void SetVisualAndAnchorControl(bool enabled)
+    {
+        // Toggle XR Interactor Line Visual
+        XRInteractorLineVisual lineVisual = GetComponent<XRInteractorLineVisual>();
+        if (lineVisual != null)
+        {
+            lineVisual.enabled = enabled;
+        }
+
+        // Toggle XR Ray Interactor Anchor Control (Lock Translation & Rotation)
+        allowAnchorControl = enabled;
+    }
+
+    private bool IsInteractingWithSlider(Transform interactableObjectTransform)
+    {
+        // Check if the interaction is with the slider component of the gun
+        while (interactableObjectTransform != null)
+        {
+            if (interactableObjectTransform.CompareTag("Slider"))
+            {
+                return true; // Slider interaction confirmed
+            }
+            interactableObjectTransform = interactableObjectTransform.parent;
+        }
+        return false; // No slider interaction detected
+    }
+
+    private void LogInteractionDetails(SelectEnterEventArgs args)
+    {
+        Debug.Log($"Grabbed Object = {args.interactableObject.transform.name}");
+        Debug.Log($"Grabbed Object Tag = {args.interactableObject.transform.tag}");
     }
 }

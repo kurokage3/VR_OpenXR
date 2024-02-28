@@ -94,8 +94,6 @@ public class FireBulletOnActivate : MonoBehaviour
 			//Play No Ammo Sound
 			audioSource.PlayOneShot(noAmmoSound);
 		}
-
-		
 	}
 
 	//This function creates the bullet behavior (Animation Event Action)
@@ -104,8 +102,22 @@ public class FireBulletOnActivate : MonoBehaviour
 		//Remove a bullet
 		magazine.numberOfBullets--;
 
-		//Play Shot Audio
-		audioSource.PlayOneShot(fireSound);
+        // Check if the magazine is empty after shooting
+        if (magazine.numberOfBullets <= 0)
+        {
+			Debug.Log("This is where no ammo gun racked back animation should start");
+
+			// Trigger the slide back animation
+			gunAnimator.SetBool("IsEmpty", true);
+		}
+        else
+        {
+			// Make sure to reset the animation state if there's still ammo
+			gunAnimator.SetBool("IsEmpty", false);
+		}
+
+        //Play Shot Audio
+        audioSource.PlayOneShot(fireSound);
 
 		if (muzzleFlashPrefab)
 		{
@@ -127,9 +139,6 @@ public class FireBulletOnActivate : MonoBehaviour
 		GameObject spawnedBullet = Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation);
 		Rigidbody bulletRB = spawnedBullet.GetComponent<Rigidbody>();
 		bulletRB.velocity = barrelLocation.forward.normalized * bulletInitialVelocity;
-
-		//Old Line of Code
-		//Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>().AddForce(barrelLocation.forward * bulletForce);
 	}
 
 	//This function creates a casing at the ejection slot (Animation Event Action)

@@ -23,6 +23,7 @@ public class XRGrabInteractableSlider : XRGrabInteractable
             args.interactable.interactionManager.CancelInteractableSelection(this);
             return;
         }
+
         base.OnSelectEntering(args);
     }
 }

@@ -162,7 +162,7 @@ PrefabInstance:
     - target: {fileID: 1157135446479032237, guid: b9ceb07df1721854aa958f5f17552e9b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0851
+      value: -0.0471
       objectReference: {fileID: 0}
     - target: {fileID: 1157135446479032237, guid: b9ceb07df1721854aa958f5f17552e9b,
         type: 3}
@@ -862,7 +862,7 @@ PrefabInstance:
     - target: {fileID: 1157135446479032237, guid: b9ceb07df1721854aa958f5f17552e9b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.2092
+      value: -0.2432
       objectReference: {fileID: 0}
     - target: {fileID: 1157135446479032237, guid: b9ceb07df1721854aa958f5f17552e9b,
         type: 3}
@@ -3986,7 +3986,7 @@ Transform:
   m_GameObject: {fileID: 8795903617664100849}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000059604645, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.09405109, z: 0.030023064}
+  m_LocalPosition: {x: 0, y: 0.094, z: 0.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4056,6 +4056,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gun_Pistol_Magazine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483225732845055648, guid: b9ceb07df1721854aa958f5f17552e9b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683418865771143643, guid: b9ceb07df1721854aa958f5f17552e9b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7709123068504992835, guid: b9ceb07df1721854aa958f5f17552e9b,
         type: 3}
@@ -5199,7 +5209,7 @@ Transform:
   m_GameObject: {fileID: 4720389831840624835}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0056}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5342,7 +5352,7 @@ GameObject:
   - component: {fileID: 8881768179730230815}
   - component: {fileID: 8881768179730230814}
   - component: {fileID: 8881768179730230818}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Slider
   m_TagString: Slider
   m_Icon: {fileID: 0}
@@ -5386,7 +5396,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 0
-  m_ConnectedAnchor: {x: 0, y: 0.094, z: 0.01}
+  m_ConnectedAnchor: {x: 0, y: 0.094, z: 0.03}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 1
@@ -5724,8 +5734,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.023, y: 0.042368375, z: 0.20516212}
-  m_Center: {x: 0, y: -0.003, z: 0.057566248}
+  m_Size: {x: 0.035, y: 0.03, z: 0.20516212}
+  m_Center: {x: 0, y: 0.005, z: 0.057566248}
 --- !u!114 &8881768179730230818
 MonoBehaviour:
   m_ObjectHideFlags: 0
