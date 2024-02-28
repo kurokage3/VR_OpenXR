@@ -79,6 +79,20 @@ public class FireBulletOnActivate : MonoBehaviour
     {
 		isGunRacked = true;
 		audioSource.PlayOneShot(rackSlideSound);
+
+		Debug.Log("NOT ABLE TO RACK BACK?????");
+
+		// Check if the magazine is empty after racking
+		if (magazine.numberOfBullets <= 0)
+		{
+			// Trigger the slide back animation
+			gunAnimator.SetBool("IsEmpty", true);
+		}
+		else
+		{
+			// Make sure to reset the animation state if there's still ammo
+			gunAnimator.SetBool("IsEmpty", false);
+		}
 	}
 
 	public void PullTheTrigger(ActivateEventArgs arg)
@@ -105,8 +119,6 @@ public class FireBulletOnActivate : MonoBehaviour
         // Check if the magazine is empty after shooting
         if (magazine.numberOfBullets <= 0)
         {
-			Debug.Log("This is where no ammo gun racked back animation should start");
-
 			// Trigger the slide back animation
 			gunAnimator.SetBool("IsEmpty", true);
 		}

@@ -9,7 +9,7 @@ using UnityEngine.Events;
 public class OnTargetReached : MonoBehaviour
 {
 	#region Variables
-	public float threshold = 0.02f;
+	public float threshold = 0.03f;
 	public float coolDownTime = 3f;
 	public Transform target;
 	public UnityEvent onReached;
