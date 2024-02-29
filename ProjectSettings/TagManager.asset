@@ -8,6 +8,7 @@ TagManager:
   - Right Hand
   - Magazine
   - Slider
+  - Bullet
   layers:
   - Default
   - TransparentFX
