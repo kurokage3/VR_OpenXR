@@ -1179,9 +1179,10 @@ GameObject:
   - component: {fileID: 2635358555092082594}
   - component: {fileID: 2430732881705735068}
   - component: {fileID: 6064347628078616801}
+  - component: {fileID: 8333800099215000091}
   m_Layer: 3
   m_Name: XR Origin (XR Rig)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1417,6 +1418,29 @@ MonoBehaviour:
   m_LocomotionProvider: {fileID: 197295712245223789}
   m_MinHeight: 1.5
   m_MaxHeight: Infinity
+--- !u!136 &8333800099215000091
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2816229648929318326}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.42, z: 0}
 --- !u!1 &3072375984675122924
 GameObject:
   m_ObjectHideFlags: 0

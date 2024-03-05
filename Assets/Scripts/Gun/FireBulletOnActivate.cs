@@ -14,6 +14,10 @@ public class FireBulletOnActivate : MonoBehaviour
 	public GameObject casingPrefab;
 	public GameObject muzzleFlashPrefab;
 
+	[Header("Ray Visual")]
+	[SerializeField] private LineRenderer lineRenderer;
+	private XRGrabInteractableGun gunInteractable;
+
 	[Header("Location Refrences")]
 	[SerializeField] private Animator gunAnimator;
 	[SerializeField] private Transform barrelLocation;
@@ -33,7 +37,7 @@ public class FireBulletOnActivate : MonoBehaviour
 
 	[Header("Settings")]
 	[Tooltip("Specify time to destory the casing object")] [SerializeField] private float destroyTimer = 5f;
-	[Tooltip("Bullet Speed")] [SerializeField] private float bulletInitialVelocity = 50f;
+	[Tooltip("Bullet Speed")] [SerializeField] private float bulletInitialVelocity = 150f;
 	[Tooltip("Casing Ejection Speed")] [SerializeField] private float casingEjectForce = 150f;
     #endregion
 
@@ -46,10 +50,13 @@ public class FireBulletOnActivate : MonoBehaviour
 		{
 			barrelLocation = transform;
 		}
-
 		if (gunAnimator == null)
 		{
 			gunAnimator = GetComponentInChildren<Animator>();
+		}
+		if(gunInteractable == null)
+        {
+			gunInteractable = GetComponentInParent<XRGrabInteractableGun>();
 		}
 
 		//Magazine Intitialization
@@ -60,19 +67,31 @@ public class FireBulletOnActivate : MonoBehaviour
 		XRGrabInteractable grabbable = GetComponentInParent<XRGrabInteractable>();
 		grabbable.activated.AddListener(PullTheTrigger);
     }
-	#endregion
 
-	public void AddMagazine(XRBaseInteractable interactable)
+    private void Update()
+    {
+		// Continuously update the ray path if the gun is being held
+		UpdateBulletPath();
+	}
+    #endregion
+
+    public void AddMagazine(XRBaseInteractable interactable)
     {
 		magazine = interactable.GetComponent<Magazine>();
 		audioSource.PlayOneShot(reloadSound);
 		isGunRacked = false;
+
+		// Disable line visuals on both hands when magazine is added
+		gunInteractable.ToggleLineVisuals(false);
 	}
 
 	public void RemoveMagazine(XRBaseInteractable interactable)
     {
 		magazine = null;
 		audioSource.PlayOneShot(reloadSound);
+
+		// Re-enable line visuals on both hands when magazine is removed
+		gunInteractable.ToggleLineVisuals(true);
 	}
 
 	public void RackSlider()
@@ -80,7 +99,8 @@ public class FireBulletOnActivate : MonoBehaviour
 		isGunRacked = true;
 		audioSource.PlayOneShot(rackSlideSound);
 
-		Debug.Log("NOT ABLE TO RACK BACK?????");
+		// Disable line visuals on both hands when gun is racked
+		gunInteractable.ToggleLineVisuals(false);
 
 		// Check if the magazine is empty after racking
 		if (magazine.numberOfBullets <= 0)
@@ -170,5 +190,29 @@ public class FireBulletOnActivate : MonoBehaviour
 
 		//Destroy casing after X seconds
 		Destroy(tempCasing, destroyTimer);
+	}
+
+	void UpdateBulletPath()
+	{
+		if (gunInteractable.IsHeld())
+		{
+			if (lineRenderer != null)
+			{
+				// Set the start position of the LineRenderer to the barrel location
+				lineRenderer.SetPosition(0, barrelLocation.position);
+
+				RaycastHit hit;
+				if (Physics.Raycast(barrelLocation.position, barrelLocation.forward, out hit))
+				{
+					// If the raycast hits something, set the end position of the LineRenderer to the hit point
+					lineRenderer.SetPosition(1, hit.point);
+				}
+				else
+				{
+					// If the raycast doesn't hit anything, extend the line far in the direction the gun is pointing
+					lineRenderer.SetPosition(1, barrelLocation.position + barrelLocation.forward * 100);
+				}
+			}
+		}
 	}
 }

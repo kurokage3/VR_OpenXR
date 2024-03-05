@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 2172950925754684501}
   - component: {fileID: 8089421892283005009}
   - component: {fileID: 6320297389550671394}
+  - component: {fileID: 8892930099749122395}
   m_Layer: 0
   m_Name: Gun_Pistol_Bullet
   m_TagString: Bullet
@@ -167,3 +168,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &8892930099749122395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7451083794254624527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 816f4912262982147919a20bf987d17b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
