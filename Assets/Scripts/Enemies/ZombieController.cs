@@ -14,7 +14,7 @@ public class ZombieController : MonoBehaviour
     public float wanderRadius = 20f;
     public float health = 30f;
     public float attackDamage = 30f;
-    public float stunDuration = 1.5f;
+    public float stunDuration = 2.0f;
 
     public Collider bodyCollider;
     public Collider headCollider;

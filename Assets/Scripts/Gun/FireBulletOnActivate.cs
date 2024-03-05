@@ -37,7 +37,7 @@ public class FireBulletOnActivate : MonoBehaviour
 
 	[Header("Settings")]
 	[Tooltip("Specify time to destory the casing object")] [SerializeField] private float destroyTimer = 5f;
-	[Tooltip("Bullet Speed")] [SerializeField] private float bulletInitialVelocity = 150f;
+	[Tooltip("Bullet Speed")] [SerializeField] private float bulletInitialVelocity = 50f;
 	[Tooltip("Casing Ejection Speed")] [SerializeField] private float casingEjectForce = 150f;
     #endregion
 
@@ -198,6 +198,9 @@ public class FireBulletOnActivate : MonoBehaviour
 		{
 			if (lineRenderer != null)
 			{
+				//Enable Line Renderer if the gun is held
+				lineRenderer.enabled = true;
+
 				// Set the start position of the LineRenderer to the barrel location
 				lineRenderer.SetPosition(0, barrelLocation.position);
 
@@ -213,6 +216,11 @@ public class FireBulletOnActivate : MonoBehaviour
 					lineRenderer.SetPosition(1, barrelLocation.position + barrelLocation.forward * 100);
 				}
 			}
+		}
+        else
+        {
+			//Disable Line Renderer if the gun is not held
+			lineRenderer.enabled = false;
 		}
 	}
 }
