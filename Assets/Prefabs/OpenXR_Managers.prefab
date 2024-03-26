@@ -1180,7 +1180,7 @@ GameObject:
   - component: {fileID: 2430732881705735068}
   - component: {fileID: 6064347628078616801}
   - component: {fileID: 8333800099215000091}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: XR Origin (XR Rig)
   m_TagString: Player
   m_Icon: {fileID: 0}

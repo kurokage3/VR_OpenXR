@@ -81,6 +81,8 @@ public class FireBulletOnActivate : MonoBehaviour
 		audioSource.PlayOneShot(reloadSound);
 		isGunRacked = false;
 
+		magazine.GetComponent<Rigidbody>().useGravity = true;
+
 		// Disable line visuals on both hands when magazine is added
 		gunInteractable.ToggleLineVisuals(false);
 	}
@@ -89,6 +91,9 @@ public class FireBulletOnActivate : MonoBehaviour
     {
 		magazine = null;
 		audioSource.PlayOneShot(reloadSound);
+
+		//// Enable collision between Magazine and Enviroment
+		//Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Magazine"), LayerMask.NameToLayer("Enviroment"), false);
 
 		// Re-enable line visuals on both hands when magazine is removed
 		gunInteractable.ToggleLineVisuals(true);

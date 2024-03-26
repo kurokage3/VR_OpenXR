@@ -142,13 +142,18 @@ public class ZombieController : MonoBehaviour
         yield return new WaitForSeconds(stunDuration);
 
         // Stop Stun
-        agent.isStopped = false;
         isStunned = false;
 
-        // Start chasing the player upon taking damage
-        if (!isStunned && health > 0) // Check if not stunned or dead to start chasing
+        // Check if not dead
+        if (health > 0)
         {
-            ChasePlayer();
+            agent.isStopped = false;
+
+            // Check if not stunned to start chasing
+            if (!isStunned)
+            {
+                ChasePlayer();
+            }
         }
     }
 

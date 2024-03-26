@@ -13,14 +13,14 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - Gun
   - Water
   - UI
   - 
   - 
-  - 
-  - 
-  - Grab Interactable
+  - Player_Left
+  - Player_Right
+  - Magazine
   - Gun Slider
   - 
   - 
@@ -40,8 +40,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Enemy
+  - Enviroment
   m_SortingLayers:
   - name: Default
     uniqueID: 0

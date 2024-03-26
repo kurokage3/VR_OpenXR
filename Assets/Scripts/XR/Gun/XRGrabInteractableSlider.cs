@@ -84,6 +84,7 @@ public class XRGrabInteractableSlider : XRGrabInteractable
 
         // Re-enable line visuals on both hands when the gun is released
         ToggleLineVisuals(false);
+        Debug.Log("Maybe ToggleLineVisuals(false); should be true");
     }
 
     private void ToggleLineVisuals(bool enabled)
